@@ -1,8 +1,101 @@
 #APache Spark
-=>Apache Spark is a framework for cluster computing that was developed as part of a research project at the AMPLab at the
+=>Apache Spark is a framework for cluster computing 
+that was developed as part of a research project at the AMPLab at the
 University of California at Berkeley and has been publicly available since 2010
 
+Note1:Distributed Data/Distributed Computing
+=>Instead of trying to process a huge dataset or run super computationally-expensive programs on one computer, these tasks can
+be divided between multiple computers that communicate with each other to produce an output
+
+Note2: n a distributed computing system, each individual computer is called a node and the collection of all of them is 
+called a cluster
+
 *RDD- Resilient Distributed Datasets
+
 Spark APIs: RDD, Dataset and DataFrame
 These three APIs can seem very confusing for anyone who’s just getting acquainted with Spark.
 https://www.datacamp.com/community/tutorials/apache-spark-python#difference
+
+#Driver program (spark context) =>cluster manager (spark, YARN) --->(Executor, cache, tasks)
+Run program upto 100 times faster than map Reduce
+DAG(Directed acyclic graph) engine optimizes workflow
+amazon, ebay , nasa all uses spark
+
+#components of spark
+spark core=> spark streaming, spark SQL, MLlib, GraphX
+
+rdd actions:
+collect, count, countByValue, take, top, reduce ..etc
+
+#Processing Engine/Processing Framework :
+*Apache Hadoop is an open source software platform that also deals with “Big Data” and distributed computing. Hadoop has a 
+processing engine, distinct from Spark, called MapReduce. MapReduce has its own particular way of optimizing tasks to be 
+processed on multiple nodes and Spark has a different way. One of Sparks strengths is that it is a processing engine that 
+can be used on its own, or used in place of Hadoop MapReduce, taking advantage of the other features of Hadoop
+
+
+*General-Purpose — One of the main advantages of Spark is how flexible it is, and how many application domains it has. 
+It supports Scala, Python, Java, R, and SQL. It has a dedicated SQL module, it is able to process streamed data in real-time
+
+#How is fault tolerance achieved in Apache Spark
+=>Spark re computes your RDD before checkpointing it and thus its run 2 times , and when you cache it Spark will simply 
+store the cached RDD in memory. And thus in case of failure spark will simply load the latest checkpoint and you will have
+a fault tolerant system.
+
+#Lazy Evaluation — Lazy evaluation, or lazy computing, has to do with how code is compiled. When a compiler that is not lazy 
+ it sequentially evaluates each expression it comes across. A lazy compiler on the other hand, doesn’t continually evaluate
+ expressions, but rather, waits until it is actually told to generate a result and then performs all the evaluation all at 
+ once
+ 
+##Spark Terms
+RDD:RDD are data structures that are the core building blocks of Spark.RDD is an immutable,partitioned collection of records, 
+which means that it can hold values, tuples, or other objects, these records are partitioned so as to be processed on a 
+distributed system, and that once an RDD has been made, it is impossible to alter it
+
+#DataFrames. Not to be confused with Pandas DataFrames, as they are distinct, Spark DataFrame have all of the features of 
+RDDs but also have a schema. This will make them our data structure of choice for getting started with PySpark
+
+#Spark DataSets:These are similar to DataFrames but are strongly-typed, meaning that the type is specified upon the creation
+of the DataSet and is not inferred from the type of records stored in it. This means DataSets are not used in PySpark 
+because Python is a dynamically-typed language
+
+For the rest of these explanations I’ll be referring to RDDs but know that what is true for an RDD is also true for a 
+DataFrame, DataFrames are just organized into a columnar structure.
+
+##Transformations — Transformations are one of the things you can do to an RDD in Spark. They are lazy operations that 
+create one or more new RDDs. It’s important to note that Transformations create new RDDs because, remember, RDDs are 
+immutable so they can’t be altered in any way once they’ve been created. So, in essence, Transformations take an RDD as an 
+input and perform some function on them based on what Transformation is being called, and outputs one or more RDDs
+
+##Actions — An Action is any RDD operation that does not produce an RDD as an output. Some examples of common Actions are 
+doing a count of the data, or finding the max or min, or returning the first element of an RDD
+
+##Lineage Graph — Most of what a lineage graph is was described in the Transformations and Actions sections, but to summarize
+a lineage graph outlines what is called a “logical execution plan”. What that means is that the compiler begins with the 
+earliest RDDs that aren’t dependent on any other RDDs, and follows a logical chain of Transformations until it ends with the
+RDD that an Action is called on
+
+## Spark Application and job:
+A Spark application is a user built program that consists of a driver and that driver’s associated executors. A Spark job is
+task or set of tasks to be executed with executor processes, as directed by the driver. A job is triggered by the calling of
+an RDD Action
+
+
+##Coding in PySpark:
+=>Because we want to be working with columnar data, we’ll be using DataFrames which are a part of Spark SQL
+NOTE: To avoid possible confusion, despite the fact that we will be working with Spark SQL, none of this will be SQL code.
+You can write SQL queries when working with Spark DataFrames but you don’t have to
+
+
+
+
+
+
+
+
+
+
+*
+
+
+
