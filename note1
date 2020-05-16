@@ -1,3 +1,8 @@
 #APache Spark
 =>Apache Spark is a framework for cluster computing that was developed as part of a research project at the AMPLab at the
 University of California at Berkeley and has been publicly available since 2010
+
+*RDD- Resilient Distributed Datasets
+Spark APIs: RDD, Dataset and DataFrame
+These three APIs can seem very confusing for anyone who’s just getting acquainted with Spark.
+https://www.datacamp.com/community/tutorials/apache-spark-python#difference
