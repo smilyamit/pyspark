@@ -147,7 +147,51 @@ str int
 
 
 
-*
+*Is reduceByKey() transformation or action ?
+reduceByKey is a transformation, the rule is any operations that creates a new RDD out of an existing RDD is a 
+transformation.
+
+#Key/Value
+I'm trying to understand the key value and how does Spark know which is the key and  which is the value
+I've changed the order of return(age, numFriends)  to return(numFriends, age) and I've realized that by doing that Spark 
+sets numFriends as the key, so I assume that the first column is always the key. Am I right?
+First entry in the tuple is considered as key for Spark RDD.
+
+#reduceByKey(): combine value with same key using some function 
+eg rdd.reduceBykey(lambda x,y: x+y)
+groupByKey(): Group value with same key
+sortByKey(): sort rdd by key values
+keys(), values(): create values of of just keys , or just values
+
+#Dictionaries in Python vs RDD dictionary
+In Python, when we create dictionaries we cannot have two values for the same key.
+
+For example: {'a':2,'b':3,'a':5} is not allowed in python but {'a':2,'b':3} is allowed.
+But rdd = lines.map(parseLine) this line will create dictionaries with  age as key and number of friends as value. That 
+means it is allowing {'a':2,'b':3,'a':5} this format where 'a' and 'b' are ages in our case.
+Yes Rahul, RDD map will allow duplicate keys, we can always combine same key values in latter reduce phases depending on 
+the use case
+
+#Based on the csv file i downloaded, shouldn't the filter be (lambda x: "TMIN" in x[2])?
+The filter is run on the RDD created by parseLine function which produces "stationID, entryType, temperature" all other col
+including date column is eliminated
+so x[1] here equates to entryType which is what we need to filter.
+
+*Note :%.2f" % total
+% is a symbol for variable and is not a modulo!
+. and the number fallowing modifies how many digit decimal points you want to print
+%f string formatting option treats the value as a decimal, and prints it to six decimal places
+the second % outside of the " " sets the variable total to the variable %.2f inside the " "
+"%.4f" would print 54.6293
+"%.2f" prints 54.63 rounded
+
+
+#when to use collect()?
+Hello Ludwig,
+countByValue will return a python list (and not RDD) that is why it is failing as there is no collect needed in that case.
+collect() can be run on RDD's only to bring all the parallelized data to the driver script as a python list.
+countByValue is doing the same as collect internally.
+
 
 
 
