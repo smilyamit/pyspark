@@ -118,17 +118,17 @@ using SparkConfig we create SparkContext object and assign that to something cal
 
 * lines = sc.textFile("<path of file>")
 => A very commomn way of creating an RDD is through the sc.textFile method
-so first value of line RDDD is going to be this entire  line of text as a row
+so first value of  RDDD (here called as line) is going to be this entire  line of text as a row
 
 * ratings = lines.map(lambda x: x.split()[2])
 it will take 3rd column which is ratings
 
 *result = ratings.countByValue()
-Now those ratings value (1,2,3,4,5) is counted for each and totalled and saved in result
+Now those ratings value (1,2,3,4,5) is counted for each and totalled and saved in result as a list of rating(str) with value(int)
 eg 3,3,5,5,5,2,1,1 so here value of ratings or no of total occurance of each rating are  (3,2), (5,2),(2,1),(1,2),(4,0)
 
 *sortedResults = collections.OrderedDict(sorted(result.items()))
-if those ratings ar unordered than it will be ordered as 
+now those list value become key value pair using dict & if those ratings ar unordered than it will be ordered(sorted) as 
 (1,2),(2,1),(3,2),(4,0),(5,3)
 
 *for key, value in sortedResults.items():
