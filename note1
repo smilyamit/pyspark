@@ -86,7 +86,42 @@ an RDD Action
 NOTE: To avoid possible confusion, despite the fact that we will be working with Spark SQL, none of this will be SQL code.
 You can write SQL queries when working with Spark DataFrames but you don’t have to
 
+#Basic template in pyspark
+from pyspark import SparkConf, SparkContext
+import collections
 
+conf = SparkConf().setMaster("local").setAppName("RatingsHistogram")
+sc = SparkContext(conf=conf)
+
+lines = sc.textFile("path.../ml-100k/u.data")
+ratings = lines.map(lambda x: x.split()[2])
+result = ratings.countByValue()
+
+sortedResults = collections.OrderedDict(sorted(result.items()))
+for key, value in sortedResults.items():
+    print("%s %i" % (key, value))
+
+*SparkContext= It is a fundamental startingpoint that the spark framework gives you to create RDD's form
+*SparkConf:  SparkConf allow u to configure SparkContext and tells things like do u want to run in a single computer (node)
+            or run in a cluster ( lots of connected computer(nodes))
+ 
+ * collections: to sort the final results. Collections in Python are containers that are used to store collections of data,
+                for example, list, dict, set, tuple etc
+                
+*SparkConf().setMaster("local").setAppName("RatingsHistogram")
+Here we are setting local computer(first node) as master , for distributed sys we will use distributed instead of local
+The appName parameter is a name for your application to show on the cluster UI, here we have only one node(local), no clustr
+
+*sc = SparkContext(conf=conf)
+using SparkConfig we create SparkContext object and assign that to something called sc
+ 
+
+* lines = sc.textFile("<path of file>")
+=> A very commomn way of creating an RDD is through the sc.textFile method
+so first value of line RDDD is going to be this entire  line of text as a row
+
+* ratings = lines.map(lambda x: x.split()[2])
+it will take 3rd column which is ratings
 
 
 
