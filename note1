@@ -236,6 +236,12 @@ semi-structured data.
 Apache Spark Streaming is a scalable fault-tolerant streaming processing system that natively supports both batch and
 streaming workloads.
 
+#Graph X
+raph analysis, originally a method used in computational biology, has become a more and more prominent data analysis 
+technique for both social network analysis (community mining and modeling author types) and recommender systems
+It works in network analysis
+
+
 
 
 
