@@ -192,6 +192,51 @@ countByValue will return a python list (and not RDD) that is why it is failing a
 collect() can be run on RDD's only to bring all the parallelized data to the driver script as a python list.
 countByValue is doing the same as collect internally.
 
+#Diff between map and flatmap in spark (for understanding)
+map(): map transform each element of an RDD into different new element but no of line of data of i/o will be same
+flatmap(): it will transform each element of an RDD into new row , so no of words per line in input/output not same
+
+*Text normalization is the process of transforming text into a single canonical form that it might not have had before
+
+###Running spark on a cluster
+* YARN is a hadoop cluster manager
+and we are running spark on top of it. By the way spark has also on its own cluster manager and can run on aws EC2 instance
+for computing
+
+# Some popular operations on RDD
+join(), lefOuterJoin(), rightOuterJoin(), groupByKey(), reducerByKey(), CombineByKey()
+cogroup(), lookup()
+groupwith()
+
+For larger operations which will be required to run cluster on lot of nodes on internet
+.partitionBy()
+
+Note: on aws
+can use -master yarn to run on a YARN cluster
+EMR sets this up by default
+
+#Troubleshooting of cloud cluster
+ 1)Hadoop cannot  recover from poorly structuring your code
+ 2) having a wrong number of partitions (1oo is ok for 1 million dataset)
+ 3) Executor having not enough memeory (it should be 1 GB at least) and asking much more from them to process
+ 
+ Above challeneg should be fix before running a production on cloud cluster
+ 
+ #When to use RDDs?
+Consider these scenarios or common use cases for using RDDs when:
+you want low-level transformation and actions and control on your dataset;
+your data is unstructured, such as media streams or streams of text;
+you want to manipulate your data with functional programming constructs than domain specific expressions;
+you don’t care about imposing a schema, such as columnar format, while processing or accessing data attributes by name or 
+column; and
+you can forgo some optimization and performance benefits available with DataFrames and Datasets for structured and 
+semi-structured data.
+
+#spark Streaming
+Apache Spark Streaming is a scalable fault-tolerant streaming processing system that natively supports both batch and
+streaming workloads.
+
+
 
 
 
